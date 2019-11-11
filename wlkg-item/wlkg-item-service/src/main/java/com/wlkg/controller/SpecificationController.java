@@ -25,14 +25,6 @@ public class SpecificationController {
         return ResponseEntity.ok(list);
     }
 
-    /*@GetMapping("/params")
-    public ResponseEntity<List<SpecParam>> querySpecParam(@RequestParam(value="gid", required = false) Long gid){
-        List<SpecParam> list = this.specificationService.querySpecParams(gid);
-        if(list == null || list.size() == 0){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return ResponseEntity.ok(list);
-    }*/
     @GetMapping("/params")
     public ResponseEntity<List<SpecParam>> querySpecParam(
             @RequestParam(value="gid", required = false) Long gid,
@@ -101,4 +93,13 @@ public class SpecificationController {
     public void deleteSpecParam(@PathVariable(value = "id") Long id){
         specificationService.deleteSpecParam(id);
     }
+
+    // 查询规格参数组，及组内参数
+    @GetMapping("/groups")
+    public ResponseEntity<List<SpecGroup>> querySpecsByCid(@RequestParam("cid") Long cid){
+        List<SpecGroup> list = this.specificationService.querySpecsByCid(cid);
+        return ResponseEntity.ok(list);
+    }
+
+
 }

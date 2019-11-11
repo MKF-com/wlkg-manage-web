@@ -8,6 +8,7 @@ import com.wlkg.common.pojo.PageResult;
 import com.wlkg.mapper.*;
 import com.wlkg.pojo.*;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +35,9 @@ public class GoodsService {
     private SkuMapper skuMapper;
     @Autowired
     private StockMapper stockMapper;
+    @Autowired
+    private AmqpTemplate amqpTemplate;
+
     /**
      * 分页查询spu
      * @param page
@@ -104,6 +108,9 @@ public class GoodsService {
         spuDetailMapper.insert(spuDetail);
 
         saveSkuAndStock(spu);
+
+        //新增商品，发送消息
+        sendMessage(spu.getId(),"insert");
     }
 
     /**
@@ -176,6 +183,9 @@ public class GoodsService {
         for(Sku sku1:skus){
             stockMapper.deleteByPrimaryKey(sku1.getId());
         }
+
+        //删除商品，发送消息
+        sendMessage(id,"delete");
     }
 
     /**
@@ -209,6 +219,9 @@ public class GoodsService {
         }
         //添加sku和stock
         saveSkuAndStock(spu);
+
+        //修改商品，发送消息
+        sendMessage(spu.getId(),"update");
     }
 
     /**
@@ -230,4 +243,34 @@ public class GoodsService {
         spu.setSaleable(true);
         spuMapper.updateByPrimaryKeySelective(spu);
     }
+
+    /**
+     * 根据id查询spu
+     * @param id
+     * @return
+     */
+    public Spu querySpuById(Long id) {
+        //查询spu
+        Spu spu = spuMapper.selectByPrimaryKey(id);
+        if(spu==null){
+            throw new WlkgException(ExceptionEnums.GOODS_NOT_FOUND);
+        }
+
+        //查询sku
+        spu.setSkus(querySkuBySpuId(id));
+        //查询detail
+        spu.setSpuDetail(queryDetailById(id));
+        return spu;
+    }
+
+    private void sendMessage(Long id,String type){
+        //发送消息
+        try {
+            this.amqpTemplate.convertAndSend("item." + type, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

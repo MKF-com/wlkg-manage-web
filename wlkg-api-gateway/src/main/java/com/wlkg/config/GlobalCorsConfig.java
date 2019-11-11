@@ -13,6 +13,8 @@ public class GlobalCorsConfig {
         //1.添加CORS配置信息
         CorsConfiguration config = new CorsConfiguration();
         //1) 允许的域,不要写*，否则cookie就无法使用了
+        config.addAllowedOrigin("http://api.wlkg.com");
+        config.addAllowedOrigin("http://www.wlkg.com");
         config.addAllowedOrigin("http://manage.wlkg.com");
         //2) 是否发送Cookie信息
         config.setAllowCredentials(true);

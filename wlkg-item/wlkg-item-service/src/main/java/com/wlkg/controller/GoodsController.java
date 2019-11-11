@@ -117,5 +117,18 @@ public class GoodsController {
     @PutMapping("/spu/up/{id}")
     public void upSpu(@PathVariable(value = "id")Long id){
         goodsService.upSpu(id);
+
     }
+
+    /**
+     * 根据spu的id查询spu
+     * @param id
+     * @return
+     */
+    @GetMapping("spu/{id}")
+    public ResponseEntity<Spu> querySpuById(@PathVariable("id") Long id){
+        Spu spu = this.goodsService.querySpuById(id);
+        return ResponseEntity.ok(spu);
+    }
+
 }

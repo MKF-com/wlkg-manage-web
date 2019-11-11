@@ -13,8 +13,12 @@ public enum ExceptionEnums {
     CATEGORY_NOT_FOUND(300,"该分类不存在"),
     SPEC_PARAM_NOT_FOUND (500,"该规格参数不存在"),
     GOODS_NOT_FOUND(400,"商品不存在"),
-    GOODS_UPDATE_FAILED(400,"商品修改失败");
+    GOODS_UPDATE_FAILED(400,"商品修改失败"),
+    BRAND_NOT_FOUND(400,"该品牌不存在"),
+    GOODS_SKU_NOT_FOUND (400,"商品sku不存在") ;
     private int code;
     private String msg;
+
+
 }
 

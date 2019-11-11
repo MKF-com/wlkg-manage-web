@@ -108,4 +108,11 @@ public class CategoryService {
         return this.categoryMapper.selectByIdList(ids).stream().map(Category::getName).collect(Collectors.toList());
     }
 
+    public List<Category> queryByIds(List<Long> ids) {
+        List<Category> list = this.categoryMapper.selectByIdList(ids);
+        if (CollectionUtils.isEmpty(list)) {
+            //throw new WlkgException(ExceptionEnum.CATEGORY_NOT_FOUND);
+        }
+        return list;
+    }
 }

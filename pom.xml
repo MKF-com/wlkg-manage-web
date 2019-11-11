@@ -14,6 +14,8 @@
         <module>wlkg-item</module>
         <module>wlkg-common</module>
         <module>wlkg-upload</module>
+        <module>wlkg-search</module>
+        <module>wlkg-goods-page</module>
     </modules>
 
     <parent>
