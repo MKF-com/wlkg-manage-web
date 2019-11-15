@@ -18,9 +18,13 @@ zuul:
   routes:
     item-service: /item/**
     search-service: /search/**
+    user-service: /user/**
+    auth-service: /auth/**
   ignored-patterns: /upload/**
   ignored-services:
    - upload-service # 忽略upload-service服务
+  add-host-header: true   #携带请求本身的host头信息
+  sensitive-headers:  #禁止使用的头信息，设置为null,否则set-cooike无效
 
 ribbon:
   ConnectTimeout: 250 # 连接超时时间(ms)
@@ -35,3 +39,16 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 10000 # 熔断超时时长：10000ms
+
+wlkg:
+  jwt:
+    pubKeyPath:  D:/tmp/rsa/rsa.pub # 公钥地址
+    cookieName: WLKG_TOKEN
+  filter:
+    allowPaths:
+      - /api/auth
+      - /api/search
+      - /api/user/register
+      - /api/user/check
+      - /api/user/code
+      - /api/item

@@ -16,6 +16,9 @@
         <module>wlkg-upload</module>
         <module>wlkg-search</module>
         <module>wlkg-goods-page</module>
+        <module>wlkg-sms</module>
+        <module>wlkg-user</module>
+        <module>wlkg-auth-center</module>
     </modules>
 
     <parent>

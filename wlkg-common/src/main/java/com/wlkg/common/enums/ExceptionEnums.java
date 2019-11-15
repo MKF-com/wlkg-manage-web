@@ -15,7 +15,10 @@ public enum ExceptionEnums {
     GOODS_NOT_FOUND(400,"商品不存在"),
     GOODS_UPDATE_FAILED(400,"商品修改失败"),
     BRAND_NOT_FOUND(400,"该品牌不存在"),
-    GOODS_SKU_NOT_FOUND (400,"商品sku不存在") ;
+    GOODS_SKU_NOT_FOUND (400,"商品sku不存在"),
+    INVALID_VERFIY_CODE (4000,"验证码错误"),
+    INVALID_USERNAME_PASSWORD(100,"用户名或密码错误"),
+    NO_AUTHORIZED (5000,"没有权限");
     private int code;
     private String msg;
 

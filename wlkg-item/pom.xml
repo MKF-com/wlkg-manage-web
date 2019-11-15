@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.wlkg.service</groupId>
+    <groupId>com.wlkg.auth.service</groupId>
     <artifactId>wlkg-item</artifactId>
     <!-- 打包方式为 pom -->
     <packaging>pom</packaging>
